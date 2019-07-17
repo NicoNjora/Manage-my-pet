@@ -9,8 +9,9 @@ import 'package:manage_my_pet/ui/settings.dart';
 
 class MyDrawer extends StatelessWidget {
   final token;
+  final userDetails;
   // In the constructor, require a token.
-  MyDrawer({Key key, @required this.token}) : super(key: key);
+  MyDrawer({Key key, @required this.token, @required this.userDetails}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,8 +24,8 @@ class MyDrawer extends StatelessWidget {
           padding: EdgeInsets.zero,
           children: <Widget>[
             new UserAccountsDrawerHeader(
-              accountName: new Text("Nicollet Njora"),
-              accountEmail: new Text("nicollet.njora05@gmail.com"),
+              accountName: new Text(userDetails.name),
+              accountEmail: new Text(userDetails.email),
               decoration: new BoxDecoration(
                 image: new DecorationImage(
                   image: new ExactAssetImage('assets/img/wallpaper.jpg'),
@@ -73,7 +74,7 @@ class MyDrawer extends StatelessWidget {
                 title: new Text("About"),
                 onTap: () {
                   Navigator.push(context,
-                      new MaterialPageRoute(builder: (context) => new AboutPage(token: token)));
+                      new MaterialPageRoute(builder: (context) => new AboutPage(token: token, userDetails: userDetails)));
                   // Navigator.pop(context);
                 }),
             new ListTile(

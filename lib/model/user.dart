@@ -17,7 +17,7 @@ class User {
     return new User._(
       id: json['id'],
       name: json['name'],
-      email: json['photo_url']
+      email: json['email']
     );
   }
 }
