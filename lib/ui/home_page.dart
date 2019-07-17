@@ -47,17 +47,15 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
   @override
+  void initState() {
+    super.initState();
+    _fetchData();
+  }
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: new Text("Home Page")),
       drawer: MyDrawer(token: token),
-      bottomNavigationBar: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: RaisedButton(
-            child: new Text("Fetch Data"),
-            onPressed: _fetchData,
-          ),
-      ),
       body: isLoading
             ? Center(
                 child: CircularProgressIndicator(),
