@@ -16,12 +16,19 @@ class _VaccinesPageState extends State<VaccinesPage> {
   _VaccinesPageState(this.token);
   var userDetails;
 
+  _myUserDataFunction() {
+    var fetchUserDetails = FetchUserDetails(token: token);
+    fetchUserDetails.fetchUserData().then((value) {
+      print(value);
+      userDetails = value;
+    });
+  }
+
   @override
   void initState() {
     super.initState();
 
-    var fetchUserDetails = FetchUserDetails(token: token);
-    userDetails = fetchUserDetails.fetchUserData();
+    _myUserDataFunction();    
   }
 
   @override

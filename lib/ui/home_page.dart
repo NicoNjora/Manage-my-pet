@@ -1,12 +1,11 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
+
 import 'package:manage_my_pet/helpers/dogdetails.dart';
 import 'package:manage_my_pet/helpers/userdetails.dart';
-import 'package:manage_my_pet/model/user.dart';
 import 'package:manage_my_pet/ui/drawer.dart';
 import 'package:manage_my_pet/ui/adddog_page.dart';
 import 'package:manage_my_pet/model/dog.dart';
+
 
 class MyHomePage extends StatefulWidget  {
   final token;
@@ -20,40 +19,46 @@ class _MyHomePageState extends State<MyHomePage> {
     final token;
   _MyHomePageState(this.token);
 
-  List<User> userDetails;
+  var userDetails;
   List<Dog> dogsDetails = List();
 
+  var isLoading = false;
+
+  _myUserDataFunction() {
+    var fetchUserDetails = FetchUserDetails(token: token);
+    fetchUserDetails.fetchUserData().then((value) {
+      print(value);
+      userDetails = value;
+    });
+  }
+  _dogDataFunction() async{
+    setState(() {
+        isLoading = true;
+    });
+    var fetchDogDetails = FetchDogDetails(token: token);
+    dogsDetails = await fetchDogDetails.fetchDogsData();
+    // .then((value) {
+    //   print(value);
+    //   dogsDetails = value;
+    // });
+    setState(() {
+        isLoading = false;
+    });
+  }
+  
   @override
   void initState() {
     super.initState();
 
-    var fetchUserDetails = FetchUserDetails(token: token);
-    // userDetails = fetchUserDetails.fetchUserData();
-
-    userDetails = (json.decode(fetchUserDetails.fetchUserData()) as List)
-            .map((data) => new User.fromJson(data))
-            .toList();
-    print(userDetails);
-
-    var fetchDogDetails = FetchDogDetails(token: token);
-    dogsDetails = fetchDogDetails.fetchDogsData();
+    _myUserDataFunction(); 
+    _dogDataFunction();    
   }
-
-  // List<Dog> list = List();
-  var isLoading = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: new Text("Home Page")),
       drawer: MyDrawer(token: token, userDetails: userDetails),
-      // bottomNavigationBar: Padding(
-      //     padding: const EdgeInsets.all(8.0),
-      //     child: RaisedButton(
-      //       child: new Text("Fetch Data"),
-      //       onPressed: _fetchData,
-      //     ),
-      // ),
       body: isLoading
             ? Center(
                 child: CircularProgressIndicator(),

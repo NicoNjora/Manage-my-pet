@@ -9,19 +9,21 @@ class FetchUserDetails {
   // In the constructor, require a token.
   FetchUserDetails({Key key, @required this.token});
 
-  List<User> user = List();
+  var user;
 
-  fetchUserData() async {
+  Future<User> fetchUserData() async {
     final response =
         await http.get("https://managemypet.herokuapp.com/api/user",
                 headers: {"Authorization": "Bearer " + token, "Accept": "application/json"});
 
     if (response.statusCode == 200) {
-      user = (json.decode(response.body) as List)
-            .map((data) => new User.fromJson(data))
-            .toList();
-      print(user);
-      return(response.body);
+      // user = (json.decode(response.body))
+      //       .map((data) => new User.fromJson(data));
+      //       // .toList();
+      user = User.fromJson(json.decode(response.body));
+
+      print(user.name);
+      return user;
     } else {     
       throw Exception('Failed to load user');
     }
