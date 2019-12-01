@@ -25,7 +25,7 @@ class _MyHomePageState extends State<MyHomePage> {
   var isLoading = false;
 
   _myUserDataFunction() {
-    var fetchUserDetails = FetchUserDetails(token: token);
+    var fetchUserDetails = UserFunctions(token: token);
     fetchUserDetails.fetchUserData().then((value) {
       print(value);
       userDetails = value;

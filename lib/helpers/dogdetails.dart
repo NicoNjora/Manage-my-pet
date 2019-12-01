@@ -12,9 +12,7 @@ class FetchDogDetails {
 	List<Dog> list = List();
 
     fetchDogsData() async {
-        // setState(() {
-        // isLoading = true;
-        // });
+        
         final response =
             await http.get("https://managemypet.herokuapp.com/api/dogs",
                     headers: {"Authorization": "Bearer " + token, "Accept": "application/json"});
@@ -27,9 +25,6 @@ class FetchDogDetails {
 
         return(list);
 
-        // setState(() {        
-        //     isLoading = false;
-        // });
         } else {
         print('I am being thrown');
         

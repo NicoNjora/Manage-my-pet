@@ -10,6 +10,8 @@ import 'package:manage_my_pet/ui/settings.dart';
 class MyDrawer extends StatelessWidget {
   final token;
   final userDetails;
+
+  final baseUrl = "https://managemypet.herokuapp.com/";
   // In the constructor, require a token.
   MyDrawer({Key key, @required this.token, @required this.userDetails}) : super(key: key);
 
@@ -34,7 +36,7 @@ class MyDrawer extends StatelessWidget {
               ),
               currentAccountPicture: CircleAvatar(
                   backgroundImage: NetworkImage(
-                      "http://www.nicolletnjora.com/assets/img/PassportPhoto.jpg")),
+                      baseUrl + "/uploads/users/" + userDetails.profileImg)),
             ),
             new ListTile(
                 leading: Icon(Icons.pets),

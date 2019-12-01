@@ -17,7 +17,7 @@ class _VaccinesPageState extends State<VaccinesPage> {
   var userDetails;
 
   _myUserDataFunction() {
-    var fetchUserDetails = FetchUserDetails(token: token);
+    var fetchUserDetails = UserFunctions(token: token);
     fetchUserDetails.fetchUserData().then((value) {
       print(value);
       userDetails = value;

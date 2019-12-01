@@ -22,7 +22,7 @@ class _FeedsPageState extends State<FeedsPage> {
   void initState() {
     super.initState();
 
-    var fetchUserDetails = FetchUserDetails(token: token);
+    var fetchUserDetails = UserFunctions(token: token);
     userDetails = fetchUserDetails.fetchUserData();
 
     var fetchFeedsDetails = FetchFeedsDetails(token: token);
